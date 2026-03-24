@@ -1,0 +1,65 @@
+{
+ "xsappname": "mycapm",
+ "scopes": [
+  {
+   "name": "$XSAPPNAME.Display",
+   "description": "display"
+  },
+  {
+   "name": "$XSAPPNAME.Edit",
+   "description": "edit"
+  },
+  {
+   "name": "$XSAPPNAME.Delete",
+   "description": "delete"
+  },
+  {
+   "name": "$XSAPPNAME.Viewer",
+   "description": "Viewer"
+  },
+  {
+   "name": "$XSAPPNAME.Editor",
+   "description": "Editor"
+  }
+ ],
+ "attributes": [
+  {
+   "name": "spiderman",
+   "description": "Bank name to control row level security ",
+   "valueType": "string"
+  }
+ ],
+ "role-templates": [
+  {
+   "name": "Viewer",
+   "description": "View all data of PO and Employees ",
+   "default-role-name": "Viewer: Authorized to Read All Books",
+   "scope-references": [
+    "$XSAPPNAME.Display"
+   ],
+   "attribute-references": [
+    {
+     "name": "spiderman"
+    }
+   ]
+  },
+  {
+   "name": "Editor",
+   "description": "Edit, delete books",
+   "scope-references": [
+    "$XSAPPNAME.Edit",
+    "$XSAPPNAME.Delete"
+   ]
+  }
+ ],
+ "authorities": [
+  "$ACCEPT_GRANTED_AUTHORITIES"
+ ],
+ "oauth2-configuration": {
+  "token-validity": 9000,
+  "redirect-uris": [
+   "https://*.cf.us10-001.hana.ondemand.com/login/callback"
+  ]
+ },
+ "xsenableasyncservice": "true"
+}

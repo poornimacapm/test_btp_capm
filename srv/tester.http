@@ -1,0 +1,141 @@
+###  consume service doc 
+http://localhost:4004/odata/v4/CatalogService
+
+### metadata
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+###employeeset
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+
+###load only few col 
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$select=ID,nameFirst,nameLast
+
+###Total count
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet 
+Authorization: Basic poornimar:Welcome1
+
+### chunck by chunk data 
+
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=2&$skip=2
+
+###fetch one employee id 
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet(ID='02BD2137-0890-1EEA-A6C2-BB55C197C7FB')
+
+###filter data 
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter= bankName eq 'My Bank of San Francisco' 
+
+###pattern match : 
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=contains(nameFirst,'Su')
+
+###sort data 
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$orderby=salaryAmount desc
+
+###POset
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet?$count=true&$select=HasActiveEntity,HasDraftEntity,ID,IsActiveEntity,colorcode,gross_amount,note,overall_status,po_id&$expand=DraftAdministrativeData($select=DraftUUID,InProcessByUser),partner_guid($select=company_name,node_key;$expand=address_guid($select=country,node_key))&$filter=(IsActiveEntity%20eq%20false%20or%20SiblingEntity/IsActiveEntity%20eq%20null)&$skip=0&$top=30'
+
+###POsetPO single data 
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC28052
+
+###PO items 
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC28052/Items
+
+###PO with items 
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/02BD2137-0890-1EEA-A6C2-BB55C1979338?$expand=Items
+
+###lazy loading .
+http://localhost:4004/odata/v4/CDSService/ProductSet/74867AD200E41EDBA5D8B06B26EB6052?$expand=ToItems
+
+###create o[eration 
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+Authorization: Basic alice:Welcome1
+
+{
+      
+      "nameFirst": "Rahuldhftest",
+      "nameMiddle": null,
+      "nameLast": "Stest",
+      "nameInitials": null,
+      "sex": "F",
+      "language": "E",
+      "phoneNumber": null,
+      "email": "test.spring@itelo.info",
+      "loginName": "SPRINGS",
+      "Currency_code": "USD",
+      "salaryAmount": 222333,
+      "accountNumber": "111222333",
+      "bankId": "12100",
+      "bankName": "My Bank of Antioch"
+}
+
+###Change request 
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/a8feecc2-91c5-4eb7-a6a3-17037d4cb882
+Content-Type: application/json
+
+{
+"salaryAmount": 332222
+
+}
+
+### tesgin deep insert 
+
+
+POST http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet
+Content-Type: application/json
+
+{
+  "currency_code": "EUR",
+  "gross_amount": 3913.91,
+  "net_amount": 3289.00,
+  "tax_amount": 624.91,
+  "node_key": "74867AD200E41EDBA5D8B0C98DC29999",
+  "po_id": "300000000",
+  "partner_guid_node_key": "74867AD200E41EDBA5D8B06885B04052",
+  "lifecycle_status": "N",
+  "overall_status": "P",
+  "note": "Example for Deep insert",
+  "Items": [
+    {
+      "currency_code": "ARS",
+      "gross_amount": 154.7,
+      "net_amount": 130,
+      "tax_amount": 24.7,
+      "node_key": "74867AD200E41EDBA5D8B0CBD35A0991",
+      
+      "product_guid_node_key": "74867AD200E41EDBA5D8B06B26F67001",
+      "po_item_pos": 10
+    },
+    {
+      "currency_code": "ARS",
+      "gross_amount": 402.22,
+      "net_amount": 338,
+      "tax_amount": 64.22,
+      "node_key": "74867AD200E41EDBA5D8B0CBD35A2992",
+     
+      "product_guid_node_key": "74867AD200E41EDBA5D8B06B26F07002",
+      "po_item_pos": 20
+    }
+   
+  ]
+}
+ 
+
+### send read
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet
+
+
+###//Function .. non instance bound 
+http://localhost:4004/odata/v4/CatalogService/getLargestOrder()
+
+###read order data 
+
+http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC28052
+
+### boost
+POST http://localhost:4004/odata/v4/CatalogService/PurchaseOrderSet/74867AD200E41EDBA5D8B0C98DC28052/boost
+Content-Type: application/json
+
+{}
+
+###Virtual element
+http://localhost:4004/odata/v4/CDSService/ProductSet

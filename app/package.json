@@ -1,0 +1,19 @@
+{
+  "name": "mycapm-ui",
+  "version": "1.0.0",
+  "description": "First CAPM App router",
+  "main": "index.js",
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js" ,
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "approuter",
+    "pr"
+  ],
+  "author": "pr",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/approuter": "^21.1.0"
+  }
+}
