@@ -17,10 +17,10 @@ service CatalogService @(path : 'CatalogService', requires : 'authenticated-user
   entity StatusCode as projection on master.statusCode;
 
   entity  PurchaseOrderSet @( 
-    //restrict :[  { grant : ['READ']  , to : 'Viewer'} ,
-    //                                        { grant : ['WRITE', 'DELETE']  , to : 'Editor'}      
+    restrict :[  { grant : ['READ']  , to : 'Viewer'} ,
+                                           { grant : ['WRITE', 'DELETE']  , to : 'Editor'}      
   
-     //                                    ],
+                                        ],
                               Common.DefaultValuesFunction : 'getDefault' )   as projection on transaction.purchaseorder
   { *,
     // CDS expression language 
